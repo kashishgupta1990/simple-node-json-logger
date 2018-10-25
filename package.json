@@ -1,12 +1,8 @@
 {
-  "name": "simple-node-logger",
-  "version": "0.93.40",
+  "name": "simple-node-json-logger",
+  "version": "0.0.1",
   "description": "A node console and file logger suitable for small, medium and large production projects.",
   "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/darrylwest/simple-node-logger.git"
-  },
   "scripts": {
     "test": "make test"
   },
@@ -16,7 +12,8 @@
     "multi-appender",
     "file logger",
     "rolling file logger",
-    "console logger"
+    "console logger",
+    "json logger"
   ],
   "dependencies": {
     "lodash": "^4.17.10",
@@ -32,8 +29,5 @@
     "index.js",
     "lib/",
     "test/mocks"
-  ],
-  "author": "darryl.west@raincitysoftware.com",
-  "license": "Apache-2.0",
-  "homepage": "https://github.com/darrylwest/simple-node-logger"
+  ]
 }

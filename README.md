@@ -1,14 +1,10 @@
-# Simple Node Logger
-```
- __ _                 _            __          _          __                             
-/ _(_)_ __ ___  _ __ | | ___    /\ \ \___   __| | ___    / /  ___   __ _  __ _  ___ _ __ 
-\ \| | '_ ` _ \| '_ \| |/ _ \  /  \/ / _ \ / _` |/ _ \  / /  / _ \ / _` |/ _` |/ _ \ '__|
-_\ \ | | | | | | |_) | |  __/ / /\  / (_) | (_| |  __/ / /__| (_) | (_| | (_| |  __/ |   
-\__/_|_| |_| |_| .__/|_|\___| \_\ \/ \___/ \__,_|\___| \____/\___/ \__, |\__, |\___|_|   
-               |_|                                                 |___/ |___/           
-```
+# Simple Node Json Logger
 
-[![NPM version](https://badge.fury.io/js/simple-node-logger.svg)](http://badge.fury.io/js/simple-node-logger) [![Build Status](https://travis-ci.org/darrylwest/simple-node-logger.svg?branch=master)](https://travis-ci.org/darrylwest/simple-node-logger) [![Dependency Status](https://david-dm.org/darrylwest/simple-node-logger.svg)](https://david-dm.org/darrylwest/simple-node-logger)
+This repository is extension of `https://www.npmjs.com/package/simple-node-json-logger`.
+
+We have just added JSON print support.
+
+[![NPM version](https://badge.fury.io/js/simple-node-json-logger.svg)](http://badge.fury.io/js/simple-node-json-logger) [![Build Status](https://travis-ci.org/darrylwest/simple-node-json-logger.svg?branch=master)](https://travis-ci.org/darrylwest/simple-node-json-logger) [![Dependency Status](https://david-dm.org/darrylwest/simple-node-json-logger.svg)](https://david-dm.org/darrylwest/simple-node-json-logger)
 
 A simple multi-level logger for console, file, and rolling file appenders.  Features include:
 
@@ -23,27 +19,27 @@ A simple multi-level logger for console, file, and rolling file appenders.  Feat
 
 ## Installation
 
-`npm install simple-node-logger --save`
+`npm install simple-node-json-logger --save`
 
 
 ## How to use
 ```javascript
 // create a stdout console logger
-const log = require('simple-node-logger').createSimpleLogger();
+const log = require('simple-node-json-logger').createSimpleLogger();
 ```
 
 or
 
 ```javascript
 // create a stdout and file logger
-const log = require('simple-node-logger').createSimpleLogger('project.log');
+const log = require('simple-node-json-logger').createSimpleLogger('project.log');
 ```
 
 or
 
 ```javascript
 // create a custom timestamp format for log statements
-const SimpleNodeLogger = require('simple-node-logger'),
+const SimpleNodeLogger = require('simple-node-json-logger'),
 	opts = {
 		logFilePath:'mylogfile.log',
 		timestampFormat:'YYYY-MM-DD HH:mm:ss.SSS'
@@ -55,7 +51,7 @@ or
 
 ```javascript
 // create a file only file logger
-const log = require('simple-node-logger').createSimpleFileLogger('project.log');
+const log = require('simple-node-json-logger').createSimpleFileLogger('project.log');
 ```
 
 or
@@ -68,14 +64,14 @@ const opts = {
         fileNamePattern:'roll-<DATE>.log',
         dateFormat:'YYYY.MM.DD'
 };
-const log = require('simple-node-logger').createRollingFileLogger( opts );
+const log = require('simple-node-json-logger').createRollingFileLogger( opts );
 ```    
 
 or
 
 ```javascript
 // create a log manager
-const manager = require('simple-node-logger').createLogManager();
+const manager = require('simple-node-json-logger').createLogManager();
     
 manager.createConsoleAppender();
     
@@ -95,6 +91,14 @@ The log levels include the standard set: trace, debug, info, warn, error and fat
 log.setLevel('warn');
 ```
 
+If you want to disable the Loglevel, Set option `disableLevel: true`
+
+```javascript
+const opts = {
+    disableLevel: true
+};
+```
+
 This sets the log level to warn and suppresses debug and info messages.
 
 ## Log Statement Formats
@@ -105,6 +109,13 @@ The default format is HH:mm:ss.SSS LEVEL message. For example, the log message:
 
 ```javascript
 log.info('subscription to ', channel, ' accepted at ', new Date().toJSON());
+```
+
+We can disable the timestamp format printing `timestampFormat: 'none'` in options settings.
+```javascript
+const opts = {
+    timestampFormat: 'none',
+};
 ```
 
 Yields:
@@ -176,7 +187,7 @@ Adding a new appender is as easy as implementing write( logEntry ).  The easiest
 For example, you can extend the AbstractAppender to create a JSON appender by doing this:
 
 ```javascript
-    const AbstractAppender = require('simple-node-logger').AbstractAppender;
+    const AbstractAppender = require('simple-node-json-logger').AbstractAppender;
 
     const JSONAppender = function() {
     	'use strict';
@@ -213,7 +224,7 @@ The appenders have formatting messages that can be overridden at the abstract or
 It's easy to extend any one of the log methods at the instance level.  Here is an example of overriding the error log to send a socket message:
 
 ```javascript
-const log = new require('simple-node-logger').createSimpleLogger();
+const log = new require('simple-node-json-logger').createSimpleLogger();
 const socket = openWebSocket();
 
 // override the standard error method to send a socket message
@@ -245,7 +256,7 @@ There is also a file watcher that can be invoked with this:
 Mocks used for testing include MockLogger and MockAppender.  Typically you would use MockLogger for unit tests like this:
 
 ```javascript
-    const MockLogger = require('simple-node-logger').mocks.MockLogger;
+    const MockLogger = require('simple-node-json-logger').mocks.MockLogger;
 
     const log = MockLogger.createLogger('MyCategory');
 
